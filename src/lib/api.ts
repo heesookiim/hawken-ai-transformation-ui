@@ -4,8 +4,8 @@ import { CompanyData, IndustryInsights } from '@/types/api';
 
 // Dynamic API URL that works in both environments
 export const getApiBaseUrl = () => {
-  // Always use the configured API URL from environment variables
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  // Use the Heroku API URL from environment variables
+  const apiUrl = process.env.NEXT_PUBLIC_HEROKU_API_URL || 'http://localhost:3001';
   
   // Remove any trailing slash from this URL
   return apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
@@ -18,7 +18,7 @@ if (typeof window !== 'undefined') {
   const baseUrl = API_URL;
   console.log(`API calls will be made to: ${baseUrl}`);
   console.log(`Environment: ${process.env.NODE_ENV}`);
-  console.log(`API URL from env: NEXT_PUBLIC_API_URL=${process.env.NEXT_PUBLIC_API_URL}`);
+  console.log(`Heroku API URL from env: NEXT_PUBLIC_HEROKU_API_URL=${process.env.NEXT_PUBLIC_HEROKU_API_URL}`);
 }
 
 export type { CompanyData, IndustryInsights };

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint",
-    "clean": "rm -rf .next dist out"
+    "clean": "rm -rf .next dist out",
+    "prod": "next build && next start -p $PORT"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
