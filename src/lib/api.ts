@@ -32,6 +32,7 @@ export interface BusinessChallenge {
 
 export interface CacheStatus {
   exists: boolean;
+  inProgress?: boolean;
   companyId?: string;
   files?: {
     name: string;
@@ -52,10 +53,10 @@ export const apiService = {
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
         // This is expected when the cache doesn't exist
-        return { exists: false, message: 'No cache found for this company' };
+        return { exists: false, inProgress: false, message: 'No cache found for this company' };
       }
       console.error('Error checking cache status:', error);
-      return { exists: false, message: 'Failed to check cache status' };
+      return { exists: false, inProgress: false, message: 'Failed to check cache status' };
     }
   },
 
@@ -145,7 +146,7 @@ export const apiService = {
   async getFinalProposal(companyName: string): Promise<CompanyData> {
     try {
       const companyId = companyName.toLowerCase().replace(/\s+/g, '-');
-      const response = await axios.get(`${API_URL}/cache/${companyId}/final_proposal.json`);
+      const response = await axios.get(`${API_URL}/api/cache/${companyId}/final_proposal.json`);
       return response.data;
     } catch (error: any) {
       console.error('Error retrieving final proposal:', error);
@@ -166,7 +167,7 @@ export const apiService = {
   async getIndustryInsights(companyName: string): Promise<IndustryInsights> {
     try {
       const companyId = companyName.toLowerCase().replace(/\s+/g, '-');
-      const response = await axios.get(`${API_URL}/cache/${companyId}/industry_insights.json`);
+      const response = await axios.get(`${API_URL}/api/cache/${companyId}/industry_insights.json`);
       return response.data;
     } catch (error: any) {
       console.error('Error retrieving industry insights:', error);
@@ -189,7 +190,7 @@ export const apiService = {
   async getBusinessChallenges(companyName: string): Promise<BusinessChallenge[] | string[]> {
     try {
       const companyId = companyName.toLowerCase().replace(/\s+/g, '-');
-      const response = await axios.get(`${API_URL}/cache/${companyId}/businessChallenges.json`);
+      const response = await axios.get(`${API_URL}/api/cache/${companyId}/businessChallenges.json`);
       return response.data;
     } catch (error: any) {
       console.error('Error retrieving business challenges:', error);
